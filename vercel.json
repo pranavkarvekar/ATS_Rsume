@@ -1,7 +1,4 @@
 {
-  "projectSettings": {
-    "framework": null
-  },
   "rewrites": [
     {
       "source": "/api/analyze",
