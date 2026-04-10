@@ -1,0 +1,11 @@
+{
+  "projectSettings": {
+    "framework": null
+  },
+  "rewrites": [
+    {
+      "source": "/api/analyze",
+      "destination": "/api/analyze.js"
+    }
+  ]
+}

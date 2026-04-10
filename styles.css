@@ -1,0 +1,625 @@
+/* ═══════════════════════════════════════════════
+   ATS Resume Analyzer — Dark Theme Stylesheet
+   ═══════════════════════════════════════════════ */
+
+/* ── Reset & Custom Properties ───────────────── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Surfaces */
+  --bg:          #0b0d17;
+  --bg-card:     #12142480;
+  --bg-card-alt: #16182a;
+  --bg-hover:    #1e2040;
+  --border:      #1f2244;
+
+  /* Accent – purple family */
+  --accent:      #7c3aed;
+  --accent-soft: #a78bfa;
+  --accent-glow: rgba(124, 58, 237, .35);
+
+  /* Text */
+  --text:        #e4e5f1;
+  --text-dim:    #8b8da6;
+  --text-muted:  #555774;
+
+  /* Status */
+  --green:       #34d399;
+  --amber:       #fbbf24;
+  --red:         #f87171;
+
+  /* Typo */
+  --font: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Misc */
+  --radius:  14px;
+  --radius-sm: 8px;
+  --transition: .25s cubic-bezier(.4,0,.2,1);
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Subtle radial glow background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%, var(--accent-glow), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(56, 189, 248, .08), transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Top Navigation Bar ──────────────────────── */
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: .75rem 2rem;
+  background: rgba(11, 13, 23, .82);
+  backdrop-filter: blur(18px) saturate(1.6);
+  -webkit-backdrop-filter: blur(18px) saturate(1.6);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  flex-shrink: 0;
+}
+
+.brand-icon {
+  font-size: 1.35rem;
+}
+
+.brand-text {
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: -.02em;
+}
+
+.brand-highlight {
+  background: linear-gradient(135deg, var(--accent-soft), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Nav Tabs */
+.nav-tabs {
+  display: flex;
+  list-style: none;
+  gap: .25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.nav-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-tab {
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .5rem .85rem;
+  font-size: .82rem;
+  font-weight: 500;
+  color: var(--text-dim);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  transition: background var(--transition), color var(--transition);
+}
+
+.nav-tab:hover {
+  background: var(--bg-hover);
+  color: var(--text);
+}
+
+.nav-tab.active {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 0 14px var(--accent-glow);
+}
+
+.tab-icon {
+  font-size: 1rem;
+}
+
+/* ── Main Content ────────────────────────────── */
+.main-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+.section-heading {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -.03em;
+  text-align: center;
+  margin-bottom: .35rem;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent-soft), #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-sub {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: .95rem;
+  margin-bottom: 2rem;
+  max-width: 520px;
+  margin-inline: auto;
+  line-height: 1.55;
+}
+
+/* ── Card (Generic Glass Card) ───────────────── */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  backdrop-filter: blur(8px);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 24px var(--accent-glow);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin-bottom: 1rem;
+}
+
+.card-header h2 {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.card-icon {
+  font-size: 1.2rem;
+}
+
+/* ── Input Grid ──────────────────────────────── */
+.input-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 740px) {
+  .input-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Drop Zone ───────────────────────────────── */
+.drop-zone {
+  position: relative;
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-sm);
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+  outline: none;
+}
+
+.drop-zone:hover,
+.drop-zone:focus-visible,
+.drop-zone.drag-over {
+  border-color: var(--accent);
+  background: rgba(124, 58, 237, .06);
+}
+
+.drop-zone-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .4rem;
+  pointer-events: none;
+}
+
+.upload-icon-wrap {
+  width: 56px;
+  height: 56px;
+  margin-bottom: .3rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+
+.upload-icon {
+  width: 100%;
+  height: 100%;
+}
+
+.drop-text {
+  font-weight: 600;
+  font-size: .95rem;
+}
+
+.drop-sub {
+  font-size: .82rem;
+  color: var(--text-dim);
+}
+
+.browse-link {
+  color: var(--accent-soft);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.file-types {
+  font-size: .72rem;
+  color: var(--text-muted);
+  margin-top: .2rem;
+}
+
+/* File Chosen State */
+.file-chosen {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  padding: .75rem 1rem;
+}
+
+.file-chosen-icon {
+  font-size: 1.35rem;
+}
+
+.file-chosen-name {
+  font-size: .88rem;
+  font-weight: 600;
+  word-break: break-all;
+}
+
+.btn-remove {
+  margin-left: auto;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-size: .8rem;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+}
+
+.btn-remove:hover {
+  background: var(--red);
+  color: #fff;
+  border-color: var(--red);
+}
+
+/* ── Job Description Textarea ────────────────── */
+.jd-textarea {
+  width: 100%;
+  min-height: 220px;
+  background: var(--bg-card-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  color: var(--text);
+  font-family: var(--font);
+  font-size: .88rem;
+  resize: vertical;
+  outline: none;
+  transition: border-color var(--transition);
+  line-height: 1.6;
+}
+
+.jd-textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.jd-textarea:focus {
+  border-color: var(--accent);
+}
+
+/* ── Primary Button ──────────────────────────── */
+.btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  margin: 0 auto;
+  padding: .85rem 2.5rem;
+  font-family: var(--font);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), #6d28d9);
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition);
+  box-shadow: 0 4px 20px var(--accent-glow);
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 28px var(--accent-glow);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: scale(.97);
+}
+
+.btn-primary:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+/* Loader Spinner inside button */
+.btn-loader {
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid rgba(255,255,255,.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin .65s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Secondary Button ────────────────────────── */
+.btn-secondary {
+  display: block;
+  margin: 2rem auto 0;
+  padding: .7rem 2rem;
+  font-family: var(--font);
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+}
+
+.btn-secondary:hover {
+  background: var(--bg-hover);
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+/* ── Results Section ─────────────────────────── */
+.results-section {
+  animation: fadeUp .5s ease-out both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  grid-template-rows: auto auto;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.score-card {
+  grid-row: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.score-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+/* Score Ring */
+.score-ring-wrap {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin-bottom: 1rem;
+}
+
+.score-ring {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.ring-bg {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 10;
+}
+
+.ring-fg {
+  fill: none;
+  stroke: url(#scoreGrad);
+  stroke-width: 10;
+  stroke-linecap: round;
+  stroke-dasharray: 440;
+  stroke-dashoffset: 440;
+  transition: stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1);
+}
+
+.score-value {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.6rem;
+  font-weight: 800;
+  letter-spacing: -.04em;
+}
+
+.score-label {
+  font-size: .82rem;
+  color: var(--text-dim);
+}
+
+/* Keywords chips */
+.keywords-card h3,
+.optimizations-card h3 {
+  font-size: .95rem;
+  font-weight: 700;
+  margin-bottom: .8rem;
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+}
+
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+}
+
+.chip {
+  display: inline-block;
+  padding: .3rem .75rem;
+  font-size: .78rem;
+  font-weight: 600;
+  border-radius: 100px;
+  background: rgba(248, 113, 113, .12);
+  color: var(--red);
+  border: 1px solid rgba(248, 113, 113, .25);
+  animation: chipIn .35s ease-out both;
+}
+
+@keyframes chipIn {
+  from { opacity: 0; transform: scale(.85); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Optimisation list */
+.opt-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: .55rem;
+}
+
+.opt-list li {
+  position: relative;
+  padding: .6rem .8rem .6rem 1.6rem;
+  font-size: .84rem;
+  line-height: 1.55;
+  color: var(--text);
+  background: var(--bg-card-alt);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--accent);
+  animation: fadeUp .4s ease-out both;
+}
+
+.opt-list li::before {
+  content: '→';
+  position: absolute;
+  left: .5rem;
+  color: var(--accent-soft);
+  font-weight: 700;
+}
+
+.placeholder-text {
+  color: var(--text-muted);
+  font-size: .84rem;
+}
+
+@media (max-width: 740px) {
+  .results-grid {
+    grid-template-columns: 1fr;
+  }
+  .score-card {
+    grid-row: auto;
+  }
+}
+
+/* ── Toast Notification ──────────────────────── */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #1a1c30;
+  color: var(--text);
+  border: 1px solid var(--red);
+  padding: .75rem 1.25rem;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .85rem;
+  box-shadow: 0 8px 30px rgba(0,0,0,.5);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 200;
+  transition: opacity .3s, transform .3s;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+/* ── Utility ─────────────────────────────────── */
+.hidden {
+  display: none !important;
+}
+
+/* Score-ring gradient (inline SVG needs a <defs> we inject in HTML) */
+/* We add it dynamically via JS for the results ring */

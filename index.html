@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ATS Resume Analyzer — Instantly score your resume against any job description, find missing keywords, and get AI-powered optimization suggestions." />
+  <title>ATS Resume Analyzer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ───────────── Top Navigation Bar ───────────── -->
+  <nav id="topNav" class="top-nav">
+    <div class="nav-brand">
+      <span class="brand-icon">⚡</span>
+      <span class="brand-text">ATS<span class="brand-highlight">Analyzer</span></span>
+    </div>
+    <ul class="nav-tabs" id="navTabs">
+      <li class="nav-tab" data-tab="review"><span class="tab-icon">🔍</span> Review</li>
+      <li class="nav-tab" data-tab="optimize"><span class="tab-icon">🚀</span> Optimize</li>
+      <li class="nav-tab active" data-tab="ats-score"><span class="tab-icon">📈</span> ATS Score</li>
+      <li class="nav-tab" data-tab="job-fit"><span class="tab-icon">🤝</span> Job Fit</li>
+      <li class="nav-tab" data-tab="keywords"><span class="tab-icon">📊</span> Keywords</li>
+      <li class="nav-tab" data-tab="design"><span class="tab-icon">🎨</span> Design</li>
+      <li class="nav-tab" data-tab="translate"><span class="tab-icon">🌍</span> Translate</li>
+    </ul>
+  </nav>
+
+  <!-- ───────────── Hero / Main Content ───────────── -->
+  <main class="main-content">
+    <!-- Upload & Input Section -->
+    <section id="inputSection" class="input-section">
+      <h1 id="pageHeading" class="section-heading">
+        Analyze Your <span class="gradient-text">Resume</span>
+      </h1>
+      <p class="section-sub">Upload your resume and paste the job description to get an instant ATS compatibility report.</p>
+
+      <div class="input-grid">
+        <!-- Resume Upload Card -->
+        <div class="card upload-card" id="uploadCard">
+          <div class="card-header">
+            <span class="card-icon">📄</span>
+            <h2>Resume</h2>
+          </div>
+          <div
+            class="drop-zone"
+            id="dropZone"
+            tabindex="0"
+            role="button"
+            aria-label="Drag and drop your resume or click to browse"
+          >
+            <div class="drop-zone-inner" id="dropZoneInner">
+              <div class="upload-icon-wrap">
+                <svg class="upload-icon" viewBox="0 0 48 48" fill="none">
+                  <path d="M24 4L24 32" stroke="url(#grad)" stroke-width="3" stroke-linecap="round"/>
+                  <path d="M16 14L24 4L32 14" stroke="url(#grad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M8 34V40C8 42.2091 9.79086 44 12 44H36C38.2091 44 40 42.2091 40 40V34" stroke="url(#grad)" stroke-width="3" stroke-linecap="round"/>
+                  <defs><linearGradient id="grad" x1="24" y1="4" x2="24" y2="44"><stop stop-color="#a78bfa"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs>
+                </svg>
+              </div>
+              <p class="drop-text">Drag & drop your resume here</p>
+              <p class="drop-sub">or <span class="browse-link">browse files</span></p>
+              <span class="file-types">PDF, TXT — max 5 MB</span>
+            </div>
+            <!-- File chosen state -->
+            <div class="file-chosen hidden" id="fileChosen">
+              <span class="file-chosen-icon">✅</span>
+              <p class="file-chosen-name" id="fileChosenName"></p>
+              <button class="btn-remove" id="btnRemoveFile" type="button" aria-label="Remove file">✕</button>
+            </div>
+            <input type="file" id="fileInput" accept=".pdf,.txt" hidden />
+          </div>
+        </div>
+
+        <!-- Job Description Card -->
+        <div class="card jd-card">
+          <div class="card-header">
+            <span class="card-icon">💼</span>
+            <h2>Job Description</h2>
+          </div>
+          <textarea
+            id="jobDescription"
+            class="jd-textarea"
+            placeholder="Paste the full job description here…"
+            rows="10"
+          ></textarea>
+        </div>
+      </div>
+
+      <button id="analyzeBtn" class="btn-primary" disabled>
+        <span class="btn-loader hidden" id="btnLoader"></span>
+        <span id="btnText">Analyze Resume</span>
+      </button>
+    </section>
+
+    <!-- ───────────── Results Dashboard ───────────── -->
+    <section id="resultsSection" class="results-section hidden">
+      <h2 class="section-heading">Your ATS <span class="gradient-text">Report</span></h2>
+
+      <div class="results-grid">
+        <!-- Score Ring -->
+        <div class="card score-card" id="scoreCard">
+          <h3>ATS Score</h3>
+          <div class="score-ring-wrap">
+            <svg class="score-ring" viewBox="0 0 160 160">
+              <circle class="ring-bg"  cx="80" cy="80" r="70" />
+              <circle class="ring-fg"  cx="80" cy="80" r="70" id="scoreFg" />
+            </svg>
+            <span class="score-value" id="scoreValue">—</span>
+          </div>
+          <p class="score-label" id="scoreLabel">Awaiting analysis…</p>
+        </div>
+
+        <!-- Missing Keywords -->
+        <div class="card keywords-card" id="keywordsCard">
+          <h3><span class="card-icon">🔑</span> Missing Keywords</h3>
+          <div class="chip-list" id="keywordsList">
+            <p class="placeholder-text">No results yet.</p>
+          </div>
+        </div>
+
+        <!-- Optimizations -->
+        <div class="card optimizations-card" id="optimizationsCard">
+          <h3><span class="card-icon">💡</span> Optimization Suggestions</h3>
+          <ul class="opt-list" id="optList">
+            <li class="placeholder-text">No results yet.</li>
+          </ul>
+        </div>
+      </div>
+
+      <button id="resetBtn" class="btn-secondary">← Analyze Another</button>
+    </section>
+
+    <!-- Error Toast -->
+    <div class="toast hidden" id="toast">
+      <span class="toast-icon">⚠️</span>
+      <span class="toast-msg" id="toastMsg"></span>
+    </div>
+  </main>
+
+  <!-- ───────────── Scripts ───────────── -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
